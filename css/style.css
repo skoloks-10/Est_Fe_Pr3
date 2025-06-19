@@ -1,7 +1,5 @@
 @import "./reset.css";
 
-
-
 section {
     width: 390px;
     height: 844px;
@@ -19,25 +17,35 @@ section {
     clip: rect(0 0 0 0);
 }
 
+/* .Splash-Screen 페이지*/
 .Splash-Screen #logo{
     display: block;
     margin: 246px auto;
     }
 
 .login{
-    background-color: rgba(234, 127, 66, 1);
+    background-color: #EA7F42;
 }
 #W-logo{
     
     margin: 180px 123px;
 }
 
+/* login 페이지 */
+
 .login-options-container{
     height: 360px;
-    background-color: rgba(255, 255, 255, 1);
-    border-radius: 30px;
+    width: 390px;
+    background-color:#FFF;
+    border-radius: 20px;
+    position: fixed;
+
 }
 
+.login-options{
+    margin-top: 50px;
+    
+}
 
 .login-options li{
     font-size: 14px;
@@ -46,42 +54,40 @@ section {
     width: 322px;
     height: 44px;
     padding-top: 13px;
-    margin: 10px auto;
+    margin: 0 auto 10px;
     border-radius: 22px;
     color: #767676;
     display: flex;
     justify-content: center;
-    text-align: center;
-    
-}
-
-.login-options img{
-    position: absolute;
-    left: 48px;
-    
-    
+    text-align: center;   
 }
 
 #kakao-login{
-    border: 1px solid rgba(242, 201, 76, 1);
-}
-#google-login{
-border: 1px solid rgba(118, 118, 118, 1);
+    border: 1px solid #F2C94C;
+    background: url("../assets/message-circle.svg") no-repeat 14px center;
+    background-size: 24px 24px;
 }
 
+#google-login{
+    border: 1px solid #767676;
+    background: url("../assets/Google__G__Logo\ 1.svg") no-repeat 14px center;
+    background-size: 24px 24px;
+}
 
 #facebook-login{
-border: 1px solid rgba(45, 156, 219, 1);
-
+    border: 1px solid #2D9CDB;
+    background: url("../assets/facebook.svg") no-repeat 14px center;
+    background-size: 24px 24px;
 }
 
 .login-email-container{
     font-size: 12px;
     color: #767676;
     margin: 20px 118px;
-
 }
 
+
+/* Login_email, signup 페이지*/
 h3{
     font-size: 24px;
     font-weight: 500;
@@ -89,5 +95,97 @@ h3{
     margin-top: 30px;
     
 }
+.input-area{
+    margin-left: 34px
+}
 
+.input-area label{
+    display: block;
+    margin-top: 40px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #767676;
+}
+.input-area input{
+    width: 322px;
+    height: 32px;
+    border: none; 
+    border-bottom: 1px solid #DBDBDB;
+    outline: none;
+    font-size: 14px;
+    font-weight: 400;
+    padding: 10px 0 8px 0;
+    color: #000;
+}
+
+.input-area input:focus{
+    border-bottom : 1px solid #F26E22;
+}
+
+.error-message{
+    /* display: none; */
+    color: #EB5757;
+    font-size: 12px;
+    font-weight: 400;
+    margin-top: 6px;
+}
+.L-button{
+    width: 322px;
+    height: 44px;
+    background-color: #FFC7A7;
+    border-radius: 44px;
+    color: #FFF;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+    margin-top: 30px;
+}
+
+/* login_email 페이지 */
+.login-email a{
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    font-size: 12px;
+    font-weight: 400;
+    color: #767676;
+}
+
+/* signup 페이지 */
+input::placeholder{
+    color: #DBDBDB;
+}
+
+.join-membership-2 p{
+    margin-top: 12px;
+    font-size:14px;
+    font-weight: 400px;
+    text-align: center;
+    color:#767676;
+}
+
+.join-img-area{
+    width: 110px;
+    height: 110px;
+    margin: 30px auto;
+    position:relative;
+    
+}
+.join-img-area img{
+    display: block;
+    width: 110px;
+    height: 110px;
+    
+}
+.join-img-area:after {
+    content: '';
+    display: block;
+    width: 36px;
+    height: 36px;
+    background: url("../assets/upload-file.svg") no-repeat;
+    background-size: 36px 36px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
 
