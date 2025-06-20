@@ -1,0 +1,22 @@
+.profile-header {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 390px;
+  height: 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px;
+  border-bottom: 1px solid var(--border-color);
+  background-color: var(--background-color);
+  z-index: 10;
+  box-sizing: border-box;
+}
+.back-button,
+.more-button {
+  width: 22px;
+  height: 22px;
+}
