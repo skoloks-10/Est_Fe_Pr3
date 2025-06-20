@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>회원가입/로그인 & 사용자 검색</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+      }
+      .tab-button.active {
+        border-bottom: 2px solid #3b82f6; /* Tailwind's blue-500 */
+        color: #2563eb; /* Tailwind's blue-600 */
+        font-weight: 600;
+      }
+      @media (prefers-color-scheme: dark) {
+        .tab-button.active {
+          color: #60a5fa; /* Tailwind's blue-400 */
+        }
+      }
+      .search-results {
+        min-height: 200px;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-gray-100 dark:bg-gray-900 flex items-center justify-center min-h-screen p-4"
+  >
+    <div
+      class="w-full max-w-2xl bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden"
+    >
+      <div class="p-6">
+        <h1
+          class="text-2xl font-bold text-center text-gray-800 dark:text-white mb-2"
+        >
+          회원가입/로그인 & 사용자 검색
+        </h1>
+        <p class="text-center text-gray-500 dark:text-gray-400 mb-6">
+          계정 생성 또는 로그인 후 사용자를 검색하세요.
+        </p>
+
+        <div
+          class="flex justify-center mb-6 border-b border-gray-200 dark:border-gray-700"
+        >
+          <button
+            id="login-tab"
+            class="tab-button py-3 px-6 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors active"
+          >
+            로그인
+          </button>
+          <button
+            id="signup-tab"
+            class="tab-button py-3 px-6 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+          >
+            회원가입
+          </button>
+        </div>
+
+        <form
+          id="login-form"
+          class="auth-form mb-8 p-4 border rounded-lg bg-gray-50 dark:bg-gray-700"
+        >
+          <h2 class="text-xl font-bold text-gray-800 dark:text-white mb-4">
+            로그인
+          </h2>
+          <div class="mb-3">
+            <label
+              for="login-email-input"
+              class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1"
+              >이메일</label
+            >
+            <input
+              type="email"
+              id="login-email-input"
+              placeholder="이메일 주소를 입력하세요"
+              class="w-full px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:text-white transition-all"
+            />
+          </div>
+          <div class="mb-4">
+            <label
+              for="login-password-input"
+              class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1"
+              >비밀번호</label
+            >
+            <input
+              type="password"
+              id="login-password-input"
+              placeholder="비밀번호를 입력하세요"
+              class="w-full px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:text-white transition-all"
+            />
+          </div>
+          <button
+            type="submit"
+            id="login-button"
+            class="w-full flex items-center justify-center px-6 py-3 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:bg-green-400 disabled:cursor-not-allowed transition-colors duration-300"
+          >
+            <span id="login-button-icon" class="mr-2"
+              ><i class="fa-solid fa-sign-in-alt"></i
+            ></span>
+            로그인
+          </button>
+          <p id="login-error-message" class="text-red-500 text-center mt-3"></p>
+          <p
+            id="login-success-message"
+            class="text-green-500 text-center mt-3 hidden"
+          ></p>
+        </form>
+
+        <form
+          id="signup-form"
+          class="auth-form mb-8 p-4 border rounded-lg bg-gray-50 dark:bg-gray-700 hidden"
+        >
+          <h2 class="text-xl font-bold text-gray-800 dark:text-white mb-4">
+            회원가입
+          </h2>
+          <div class="mb-3">
+            <label
+              for="signup-username-input"
+              class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1"
+              >사용자 이름</label
+            >
+            <input
+              type="text"
+              id="signup-username-input"
+              placeholder="사용할 이름을 입력하세요"
+              class="w-full px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:text-white transition-all"
+            />
+          </div>
+          <div class="mb-3">
+            <label
+              for="signup-accountname-input"
+              class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1"
+              >계정 ID</label
+            >
+            <input
+              type="text"
+              id="signup-accountname-input"
+              placeholder="영문, 숫자, 밑줄, 마침표만 사용 (예: my_id.123)"
+              class="w-full px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:text-white transition-all"
+            />
+          </div>
+          <div class="mb-3">
+            <label
+              for="signup-email-input"
+              class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1"
+              >이메일</label
+            >
+            <input
+              type="email"
+              id="signup-email-input"
+              placeholder="유효한 이메일 주소를 입력하세요"
+              class="w-full px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:text-white transition-all"
+            />
+          </div>
+          <div class="mb-4">
+            <label
+              for="signup-password-input"
+              class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1"
+              >비밀번호</label
+            >
+            <input
+              type="password"
+              id="signup-password-input"
+              placeholder="6자 이상 입력하세요"
+              class="w-full px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:text-white transition-all"
+            />
+          </div>
+          <div class="mb-4">
+            <label
+              for="signup-intro-input"
+              class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1"
+              >자기소개 (선택)</label
+            >
+            <textarea
+              id="signup-intro-input"
+              placeholder="간단한 자기소개를 입력하세요"
+              class="w-full px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:text-white transition-all resize-none h-20"
+            ></textarea>
+          </div>
+          <button
+            type="submit"
+            id="signup-button"
+            class="w-full flex items-center justify-center px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:bg-indigo-400 disabled:cursor-not-allowed transition-colors duration-300"
+          >
+            <span id="signup-button-icon" class="mr-2"
+              ><i class="fa-solid fa-user-plus"></i
+            ></span>
+            회원가입
+          </button>
+          <p
+            id="signup-error-message"
+            class="text-red-500 text-center mt-3"
+          ></p>
+          <p
+            id="signup-success-message"
+            class="text-green-500 text-center mt-3 hidden"
+          ></p>
+        </form>
+
+        <form id="search-form" class="flex items-center gap-3 mt-8">
+          <div class="relative flex-grow">
+            <i
+              class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"
+            ></i>
+            <input
+              type="text"
+              id="keyword-input"
+              placeholder="예: gamgyul, 코딩 마법사"
+              class="w-full pl-12 pr-4 py-3 bg-gray-100 dark:bg-gray-700 border-2 border-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-white transition-all"
+            />
+          </div>
+          <button
+            type="submit"
+            id="search-button"
+            class="flex items-center justify-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:bg-blue-400 disabled:cursor-not-allowed transition-colors duration-300"
+          >
+            <span id="search-button-icon">
+              <i class="fa-solid fa-magnifying-glass w-5 h-5 mr-2"></i>
+            </span>
+            검색
+          </button>
+        </form>
+        <p id="search-error-message" class="text-red-500 text-center mt-4"></p>
+      </div>
+
+      <div
+        id="results-container"
+        class="search-results border-t border-gray-200 dark:border-gray-700"
+      ></div>
+    </div>
+
+    <script src="./js/common.js"></script>
+    <script src="./js/auth.js"></script>
+    <script src="./js/search.js"></script>
+  </body>
+</html>
