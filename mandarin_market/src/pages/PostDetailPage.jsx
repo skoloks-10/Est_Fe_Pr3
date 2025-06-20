@@ -14,6 +14,7 @@ const PostDetailPage = () => {
   const { postId } = useParams();
   const navigate = useNavigate();
   const mainContentRef = useRef(null);
+  const commentFormRef = useRef(null); // 1. 댓글 입력창을 가리킬 ref를 추가합니다.
 
   // --- 상태 관리 ---
   const [post, setPost] = useState(null);
@@ -24,7 +25,7 @@ const PostDetailPage = () => {
   const [isCommentsLoading, setIsCommentsLoading] = useState(false);
   const [hasMoreComments, setHasMoreComments] = useState(true);
   const [commentsSkip, setCommentsSkip] = useState(0);
-  const COMMENT_LIMIT = 10;
+  const COMMENT_LIMIT = 100; // 한 번에 불러올 댓글 수를 10에서 100으로 늘립니다.
 
   // ▼▼▼ 모달 상태 분리 ▼▼▼
   const [isCommentModalOpen, setIsCommentModalOpen] = useState(false);
@@ -261,6 +262,11 @@ const PostDetailPage = () => {
     setIsAlertOpen(true);
   };
 
+  // 2. 댓글 아이콘 클릭 시, 입력창으로 스크롤하는 함수를 추가합니다.
+  const handleScrollToComment = () => {
+    commentFormRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
   const handleImgError = (e) => {
     e.target.src = defaultProfileImg;
   };
@@ -350,10 +356,11 @@ const PostDetailPage = () => {
                 <img src={heartIcon} alt="좋아요" />
                 <span>{post.heartCount}</span>
               </button>
-              <div className="comment-link">
+              {/* 3. div를 button으로 바꾸고, 클릭 이벤트를 연결합니다. */}
+              <button className="comment-link" onClick={handleScrollToComment}>
                 <img src={commentIcon} alt="댓글" />
                 <span>{post.commentCount}</span>
-              </div>
+              </button>
             </div>
             <p className="post-date">
               {new Date(post.createdAt).toLocaleDateString()}
@@ -394,7 +401,8 @@ const PostDetailPage = () => {
         </main>
 
         {/* 댓글 입력창 */}
-        <footer className="comment-form-container">
+        {/* 4. footer에 ref를 연결합니다. */}
+        <footer className="comment-form-container" ref={commentFormRef}>
           <img
             src={generateImageUrl(myProfileImage)}
             onError={handleImgError}

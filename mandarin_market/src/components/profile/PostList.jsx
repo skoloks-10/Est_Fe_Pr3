@@ -175,14 +175,18 @@ const PostList = ({ posts = [], showViewToggle = true }) => {
                           </Link>
                         ))}
                     </div>
-
                     <div className="post-interactions">
-                      <span>
-                        <img src={heartIcon} alt="좋아요" /> {post.heartCount}
-                      </span>
-                      <span>
-                        <img src={commentIcon} alt="댓글" /> {post.commentCount}
-                      </span>
+                      <button
+                        className={`like-button ${post.hearted ? "liked" : ""}`}
+                      >
+                        <img src={heartIcon} alt="좋아요" />
+                        <span>{post.heartCount}</span>
+                      </button>
+                      {/* 이 부분을 Link 컴포넌트로 수정하여 클릭 시 상세 페이지로 이동시킵니다. */}
+                      <Link to={`/post/${post.id}`} className="comment-link">
+                        <img src={commentIcon} alt="댓글" />
+                        <span>{post.commentCount}</span>
+                      </Link>
                     </div>
                     <p className="post-date">{formatDate(post.createdAt)}</p>
                   </div>

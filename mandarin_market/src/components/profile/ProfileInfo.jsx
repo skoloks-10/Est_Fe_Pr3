@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { generateImageUrl } from "../../utils/imageUrl";
 import defaultImage from "../../assets/images/default-profile.svg";
@@ -6,11 +6,17 @@ import chatIcon from "../../assets/images/icon-message-circle.png";
 import shareIcon from "../../assets/images/icon-share.png";
 import "../../styles/profile/ProfileInfo.css";
 
-const ProfileInfo = ({ profile, isMyProfile }) => {
+const ProfileInfo = ({ profile, isMyProfile, onFollowChange }) => {
   // isfollow prop으로 초기 상태 설정
   const [isFollowing, setIsFollowing] = useState(profile.isfollow);
   // 팔로워 수를 상태로 관리하여 실시간으로 변경
   const [followerCount, setFollowerCount] = useState(profile.followerCount);
+
+  // 외부에서 profile이 바뀌면 상태도 업데이트
+  useEffect(() => {
+    setIsFollowing(profile.isfollow);
+    setFollowerCount(profile.followerCount);
+  }, [profile.isfollow, profile.followerCount]);
 
   const handleFollowToggle = async () => {
     const token = localStorage.getItem("token");
@@ -38,6 +44,11 @@ const ProfileInfo = ({ profile, isMyProfile }) => {
         // API 응답을 기반으로 팔로우 상태와 팔로워 수 업데이트
         setIsFollowing(data.profile.isfollow);
         setFollowerCount(data.profile.followerCount);
+
+        // 팔로우 상태 변경을 부모 컴포넌트에 알림
+        if (onFollowChange) {
+          onFollowChange(data.profile.isfollow);
+        }
       }
     } catch (error) {
       console.error("팔로우 처리 중 오류:", error);
